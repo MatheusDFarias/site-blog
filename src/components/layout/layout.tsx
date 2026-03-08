@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import { Header } from "./header";
 import { Footer } from "./footer";
 import { Inter, PT_Sans_Caption } from "next/font/google";
+import { CallToAction } from "@/templates/landing-page/sections";
 
 
 type LayoutProps ={
@@ -26,7 +27,7 @@ export function Layout({children}:LayoutProps){
             <main className="flex-1 flex flex-col mt-10 mb-12">
                 {children}
             </main>
-            { router.pathname !== '/_error' && <Footer/>}
+            { router.pathname !== '/_error' && (<> <CallToAction/> <Footer/></>)}
         </div>
     )
 }

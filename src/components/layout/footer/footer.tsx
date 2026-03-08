@@ -3,7 +3,7 @@ import { Logo } from "../../logo/logo";
 
 export function Footer() {
     return(
-        <footer className="bg-gray-500">
+        <footer className="bg-gray-600">
              <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between md:flex-row gap-8 py-8">
                     
