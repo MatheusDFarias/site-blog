@@ -1,10 +1,9 @@
 import { Avatar } from "@/components/avatar";
 import { Markdown } from "@/components/markdown";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
-import { Button } from "@/components/ui/button";
-import { useShare } from "@/hooks";
-import { allPosts, Post } from "contentlayer/generated";
+import { Post } from "contentlayer/generated";
 import Image from "next/image";
+import { PostShare } from "./components/post-share";
 
 export type PostPageProps ={
     post:Post
@@ -12,15 +11,10 @@ export type PostPageProps ={
 
 export const Postpage = ({post}:PostPageProps) =>{
     
-    
-    
-    const publishDate = new Date(post?.date).toLocaleDateString('pt-BR')
     const postUrl = `https://site.set/blog/${post.slug}`
-    const {shareButtons} = useShare({
-        url:postUrl,
-        title:post.title,
-        text:post.description
-    });
+
+    const publishDate = new Date(post?.date).toLocaleDateString('pt-BR')
+
     return (
         <main className="py-20 text-gray-100">
             <div className="container space-y-8 px-4 md-8">
@@ -61,26 +55,7 @@ export const Postpage = ({post}:PostPageProps) =>{
                             <Markdown content={post.body.raw} />
                         </div>
                     </article>
-                    <aside className="space-y-6">
-                        <div className="rounded-lg bg-gray-700">
-                           <h2 className="hidden md:block mb-4 text-heading-xs text-gray-100">
-                                Compartilhar
-                           </h2>
-                           <div className="flex justify-between md:flex-col gap-2">
-                                {shareButtons.map((provider) => (
-                                    <Button
-                                    key={provider.provider}
-                                    variant="outlined"
-                                    className="w-fit md:w-full justify-start gap-2"
-                                    onClick={provider.action}
-                                    >
-                                        {provider.icon}
-                                      <span className="hidden md:block">{provider.name}</span>  
-                                    </Button>
-                                ))}
-                           </div>
-                        </div>
-                    </aside>
+                    <PostShare description={post.description} title={post.title} url={postUrl} />
                 </div>
             </div>
         </main>)

@@ -1,14 +1,16 @@
 import { cn } from "@/lib/utils";
 import { CircleX, SearchIcon } from "lucide-react";
-import { useRouter } from "next/router";
-import { useCallback, useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 
 export function Search() {
-
+    const inputRef = useRef<HTMLInputElement | null>(null)
     const router = useRouter();
-    const query =( router.query.q as string )?? '';
-    console.log(query)
+    const searchParams = useSearchParams();
+    const query = searchParams?.get('q') ?? '';
+    const hasQuery = !!searchParams?.has('q');
+    
     const handleSearch = useCallback((event: React.FormEvent) => {
         event.preventDefault();
         if (query.trim()) {
@@ -18,22 +20,30 @@ export function Search() {
 
     const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const newQuery = event.target.value;
-        router.push(`/blog?q=${encodeURIComponent(newQuery)}`, undefined, {
-            shallow: true,
+        router.push(`/blog?q=${encodeURIComponent(newQuery)}`, {
+           
             scroll: false
         })
     }
 
     const resetSearch = () =>{
-        router.push('/blog',undefined, {
-            shallow: true,
+        router.push('/blog', {
+           
             scroll: false
         })
     }
+
+    useEffect(() =>{
+        if(hasQuery){
+            inputRef.current?.focus();
+        }
+    },[hasQuery])
+
     return (
         <form onSubmit={handleSearch} className="relative group w-full md:w-60">
             <SearchIcon className={cn(`text-gray-300 absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 transition-colors duration-200 group-focus-within:text-blue-300 `, query ? 'text-blue-300' : '')} />
             <input
+                ref={inputRef}
                 type="text"
                 onChange={handleQueryChange}
                 value={query}
