@@ -8,12 +8,12 @@ export const metadata: Metadata ={
     openGraph:{
         title:'Site-set',
         description:'Venda seus produto como afiliado em um único lugar',
-        url:'https://site-blog-khaki-gamma.vercel.app/og-image.png',
+        url:'https://site-blog-khaki-gamma.vercel.app/og-image.jpg',
         siteName:'Site-set',
         locale:'pt_BR',
         type:'website',
         images:{
-            url:'https://site-blog-khaki-gamma.vercel.app/og-image.png',
+            url:'https://site-blog-khaki-gamma.vercel.app/og-image.jpg',
             width:800,
             height: 600,
             alt:'Site-set'
