@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
     }
 }
 
-export async function generateStatisParams() {
+export async function generateStaticParams() {
     return allPosts.map((post) => ({
         slug: post.slug
     }))
